@@ -1,0 +1,140 @@
+
+Name: Luke Gearty
+ 
+
+NYU Email: lg3878@nyu.edu
+
+
+
+
+Solutions to midterm exam
+
+
+Question 1 (Multiple choice answer): C
+Question 2 (Multiple choice answer): C
+Question 3 (Multiple choice answer): D
+Question 4 (Expression): 2 3 + 4 * 5 - 6 -
+Question 5 (Value): -1/2
+
+Question 6 (Algorithm; English answer):
+An AVL tree is balanced if the difference of the height of the left node and the right node is no greater than 1. One way to check the balance factor of the AVL without keeping track of the height of the tree would be to write a function that traverses the tree.
+
+This traversal method would be similar to post order, because the order of the nodes being examined would be left, right, then the current node. 
+
+This method would also keep track of the heights of the left side and the right side. We initialize these values to be 0. Each time another level is explored, those values would increment. If a null pointer is found, then there is no further value discovered, and we have reached the leaf nodes. 
+
+The function would check the left height and right height variables and check to make sure the difference between the two is no greater than 1. If it is, the function would return false and then we can conclude the tree is not balanced. If the function returns true, then the tree is balanced. 
+
+Because this algorithm is traversing the entire tree, the run time will be big Theta(N).
+
+Question 7 (Algorithm; English answer):
+Since we are dealing with an exceedingly large list, a lot of sorting algorithms, like selection sort, would be inefficient. And since the list can only be stored once in memory, that rules out a merge sort algorithm, since that would require a lot more memory. 
+
+Since we are given a pointer to an arbitrary node in this doubly linked list, we can use that node as the pivot point in a quicksort algorithm. Since it is doubly linked, we can traverse both ways through the list, since there will be pointers to the previous and next elements. 
+
+There will be drawbacks, however. Quicksort's worst case runtime is O(n^2), and there is a possibility we can reach worst case scenario. But on average it will run n log n. 
+
+Question 8 (Program):
+
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+int main() {
+
+    ifstream fileOne("1.txt");
+    ifstream fileTwo("2.txt");
+    ofstream fileThree("3.txt");
+
+    int temp;
+    int tempTwo;
+    while (fileOne >> temp && fileTwo >> tempTwo) {
+       if (temp < tempTwo) {
+            fileThree << temp << endl;
+            fileThree << tempTwo << endl;
+       }
+       else {
+        fileThree << tempTwo << endl;
+        fileThree << temp << endl;
+       }
+    }
+    fileOne.close();
+    fileTwo.close();
+    fileThree.close();
+    return 0;
+}
+
+Question 9 (Program):
+
+#include <iostream>
+#include <queue>
+#include <list>
+using namespace std;
+
+template <class T>
+class BSTNode;
+template <class T>
+list<T> createList(BSTNode<T>* root) {
+    queue<T> q;
+    list<T> llist(root); // initializing the list to start with root
+    q.push(root); //the start of the queue
+    while (!q.empty()) {
+        BSTNode<T>* curr = q.front();
+        q.pop(); //pop the queue
+        //check the left and right pointers
+        if (curr->left != nullptr) {
+            q.push(curr->left);
+            llist.push_back(curr->left);
+        }
+        if (curr->right != nullptr) {
+            q.push(curr->right);
+            llist.push_back(curr->right);
+        }
+    }
+    return llist;
+}
+
+Question 10: (Classes):
+#include <iostream>
+#include <vector>
+using namespace std;
+
+
+class Device {
+public:
+    virtual void showImage(int x) {}
+};
+
+class Television : public Device {
+public:
+    Television() {}
+    void showImage(int x);
+};
+
+class Computer : public Device {
+public:
+    Computer() {}
+    void showImage(int x);
+};
+
+int main() {
+    //this problem asks to provide a main function that puts three chairs int a vector of furniture, but it also asked us to create computer and television and device classes? Did the question mean to ask for three computers in a vector of devices?
+    Computer *one;
+    Computer *two;
+    Computer *three;
+    vector <Device*> devices;
+
+    devices.push_back(one);
+    devices.push_back(two);
+    devices.push_back(three);
+    
+    return 0;
+}
+
+void Television::showImage(int x) {
+    cout << x << " Television" << endl;
+}
+
+void Computer::showImage(int x) {
+    cout << x << " Computer" << endl;
+}
